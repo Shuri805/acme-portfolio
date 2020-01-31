@@ -20,20 +20,33 @@ const fetchUser = async ()=> {
   return  user;
 };
 
+const fetchNotes = async ()=> {
+
+}
 
 
 function App() {
   const [user, setUser] = useState({});
+  const [notes, setNotes] = useState([]);
+  const [vacations, setVacations] = useState([]);
+  const [companies, setCompanies] = useState([]);
+
   useEffect(()=>{
     fetchUser()
     .then(user => setUser(user));
   },[]);
+
+  useEffect(()=>{
+    fetchNotes()
+      .then(notes => setNotes(notes));
+  }, []);
 
   const changeUser = ()=> {
     window.localStorage.removeItem('userId');
     fetchUser()
       .then(user => setUser(user));
   };
+
 
   return (
     <div >
