@@ -5,6 +5,14 @@ body {
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  background-color: linen;
+}
+
+button {
+  border-radius: 10%;
+  background-color: linen;
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
+  font-weight: bold;
 }
 
 code {
@@ -27,4 +35,21 @@ header button {
 
 header img {
   border-radius: 50%;
+}
+
+ul {
+  list-style: none;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  padding: 1rem;
+}
+
+li {
+  background-color: teal;
+  color: white;
+  padding: 3rem;
+  border-radius: 50%;
+  height: 10rem;
+  width: 10rem;;
 }

@@ -21,7 +21,10 @@ const fetchUser = async ()=> {
 };
 
 const fetchNotes = async ()=> {
-
+  //const storage = window.localStorage;
+  const notes = (await axios.get(`${API}/users/:id/notes`)).data;
+  // storage.setItem('userId', user.id);
+  return notes;
 }
 
 
@@ -41,6 +44,18 @@ function App() {
       .then(notes => setNotes(notes));
   }, []);
 
+  // useEffect(()=>{
+  //   fetchVacations()
+  //     .then(vacations => setVacations(vacations));
+  // }, []);
+
+  // useEffect(()=>{
+  //   fetchCompanies()
+  //     .then(companies => setNotes(companies));
+  // }, []);
+
+
+
   const changeUser = ()=> {
     window.localStorage.removeItem('userId');
     fetchUser()
@@ -51,6 +66,12 @@ function App() {
   return (
     <div >
       <Header user ={user} changeUser={ changeUser } />
+      <ul>
+        <li><h2>Notes</h2>You have { notes.length } notes</li>
+        <li><h2>Vacations</h2>You have {vacations.length} vactions</li>
+        <li><h2>Following Companies</h2>You are following {companies.length} companies</li>
+      </ul>
+
     </div>
   );
 }
