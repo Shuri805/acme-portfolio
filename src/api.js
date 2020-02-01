@@ -14,20 +14,22 @@ const fetchUser = async ()=> {
       return fetchUser();
     }
   }
+
   const user = (await axios.get(`${API}/users/random`)).data;
   storage.setItem('userId', user.id);
   return  user;
 };
 
 const fetchVacations = async(userId) =>{
-  return (await axios.get(`${API}/user/${userId}/vacations`)).data;
+  return (await axios.get(`${API}/users/${userId}/vacations`)).data;
 };
 
 const fetchNotes = async(userId) =>{
-  return (await axios.get(`${API}/user/${userId}/notes`)).data;
-
-const fetchFollowingCompanies = async(userId) =>{
-  return (await axios.get(`${API}/user/${userId}/followingCompanies`)).data;
+  return (await axios.get(`${API}/users/${userId}/notes`)).data;
 };
 
-export { fetchUser, fetchVacations, fetchNotes, fetchFollowingCompanies};
+const fetchFollowingCompanies = async(userId) =>{
+  return (await axios.get(`${API}/users/${userId}/followingCompanies`)).data;
+};
+
+export { fetchUser, fetchVacations, fetchNotes, fetchFollowingCompanies };
