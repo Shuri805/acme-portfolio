@@ -1,16 +1,7 @@
 import React, {useState, useEffect} from 'react';
 import axios from 'axios'
 import Header from './Header'
-const API = 'https://acme-users-api-rev.herokuapp.com/api';
-
-
-
-// const fetchNotes = async ()=> {
-//   //const storage = window.localStorage;
-//   const notes = (await axios.get(`${API}/users/:id/notes`)).data;
-//   // storage.setItem('userId', user.id);
-//   return notes;
-// }
+import {fetchUser, fetchVacations, fetchNotes, fetchFollowingCompanies} from './api'
 
 
 function App() {
@@ -19,21 +10,9 @@ function App() {
   const [vacations, setVacations] = useState([]);
   const [followingCompanies, setFollowingCompanies] = useState([]);
 
-  const fetchUser = async ()=> {
-    const storage = window.localStorage;
-    const userId = storage.getItem('userId');
-    if(userId){
-      try {
-        return (await axios.get(`${API}/users/detail/${userId}`)).data;
-      }
-      catch(ex){
-        storage.removeItem('userId');
-        return fetchUser();
-      }
-    }
-    const user = (await axios.get(`${API}/users/random`)).data;
-    storage.setItem('userId', user.id);
-    return  user;
+  const fetchAndSetUser = ()=> {
+    fetchUser()
+    .then( user => setUser(user));
   };
 
   // useEffect(()=>{
@@ -55,18 +34,14 @@ function App() {
   //   fetchCompanies()
   //     .then(companies => setNotes(companies));
   // }, []);
-  const fetchVacations = async(userId) =>{
-    return (await axios.get(`${API}/user/${userId}/vacations`)).data;
-  };
 
-  const fetchNotes = async(userId) =>{
-    return (await axios.get(`${API}/user/${userId}/notes`)).data;
-  };
 
-  const fetchFollowingCompanies = async(userId) =>{
-    return (await axios.get(`${API}/user/${userId}/followingCompanies`)).data;
-  };
-
+// const fetchNotes = async ()=> {
+//   //const storage = window.localStorage;
+//   const notes = (await axios.get(`${API}/users/:id/notes`)).data;
+//   // storage.setItem('userId', user.id);
+//   return notes;
+// }
 
   useEffect(()=> {
     if(user.id){
@@ -86,8 +61,7 @@ function App() {
 
   const changeUser = ()=> {
     window.localStorage.removeItem('userId');
-    fetchUser()
-      .then(user => setUser(user));
+    fetchAndSetUser();
   };
 
 
